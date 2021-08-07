@@ -13,6 +13,7 @@ class BlogPost(models.Model):
     author = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name='date published')
     upd_date = models.DateTimeField(auto_now=True, verbose_name='date updated')
+    categories = models.ManyToManyField('BlogCategory', related_name='posts')
     slug = models.SlugField(null=True, unique=True)
 
     def __str__(self):
@@ -27,3 +28,18 @@ class BlogComment(models.Model):
 
     def __str__(self):
         return f'"{Truncator(self.message).chars(50)}" by {self.author.username}'
+
+class BlogCategory(models.Model):
+	name = models.CharField(max_length=50, unique=True)
+	color_choices = [
+		('primary', 'primary'),
+		('secondary', 'secondary'),
+		('success', 'success'),
+		('danger', 'danger')
+		('warning', 'warning'),
+		('info', 'info'),
+	]
+	tag_color = models.CharField(max_length=10, choices=color_choices, default='light')
+
+	def __str__(self):
+		return self.name
