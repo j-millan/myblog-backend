@@ -25,4 +25,5 @@ from blog import urls as blog_urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(blog_urls)),
+    path('api-auth/', include('rest_framework.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
