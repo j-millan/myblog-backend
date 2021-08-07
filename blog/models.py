@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils.text import Truncator
+from django.db.models.signals import post_delete, pre_save
+from django.dispatch import receiver
+from django.utils.text import Truncator, slugify
 
 def upload_location(instance, filename):
     FILENAME = str.lower(f'{instance.title}-{filename}')
@@ -15,10 +17,20 @@ class BlogPost(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name='date published')
     upd_date = models.DateTimeField(auto_now=True, verbose_name='date updated')
     categories = models.ManyToManyField('BlogCategory', related_name='posts')
-    slug = models.SlugField(null=True, unique=True)
+    slug = models.SlugField(null=True, unique=True, blank=True)
 
     def __str__(self):
         return self.title
+
+@receiver(post_delete, sender=BlogPost)
+def post_delete_blog_post(sender, instance, *args, **kwargs):
+    instance.thumbnail.delete(False)
+
+def pre_save_blog_post(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = slugify(f'{instance.author.username}-{instance.title}')
+
+pre_save.connect(pre_save_blog_post, sender=BlogPost)
 
 class BlogComment(models.Model):
     message = models.TextField(max_length=600)
