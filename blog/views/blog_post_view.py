@@ -21,7 +21,6 @@ class BlogPostListCreate(generics.ListCreateAPIView):
 
 class BlogPostDetailUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = BlogPost.objects.all()
-    serializer_class = BlogPostSerializer
     permission_classes = [IsOwnerOrReadOnly]
 
     def get_serializer_class(self):
