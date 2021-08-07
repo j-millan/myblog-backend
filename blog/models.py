@@ -8,7 +8,7 @@ def upload_location(instance, filename):
 class BlogPost(models.Model):
     title = models.CharField(max_length=100)
     introduction = models.TextField(max_length=400)
-    body = models.TextField(maxlength=25000)
+    body = models.TextField(max_length=25000)
     thumbnail = models.ImageField(upload_to=upload_location)
     author = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name='date published')
@@ -20,8 +20,8 @@ class BlogPost(models.Model):
         return self.title
 
 class BlogComment(models.Model):
-    message = models.TextField(maxlength=600)
-    author = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
+    message = models.TextField(max_length=600)
+    author = models.ForeignKey(User, related_name='comments', on_delete=models.CASCADE)
     post = models.ForeignKey(BlogPost, related_name='comments', on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name='date published')
     upd_date = models.DateTimeField(auto_now=True, verbose_name='date updated')
@@ -35,7 +35,7 @@ class BlogCategory(models.Model):
 		('primary', 'primary'),
 		('secondary', 'secondary'),
 		('success', 'success'),
-		('danger', 'danger')
+		('danger', 'danger'),
 		('warning', 'warning'),
 		('info', 'info'),
 	]
@@ -47,7 +47,7 @@ class BlogCategory(models.Model):
 class UserFollowing(models.Model):
     date_followed = models.DateTimeField(auto_now=True)
     follower = models.ForeignKey(User, related_name='following', on_delete=models.CASCADE)
-    followed = models.ForeignKey(User, related_name='followers')
+    followed = models.ForeignKey(User, related_name='followers', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.follower.username} follows {self.followed.username}'
