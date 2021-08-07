@@ -43,3 +43,11 @@ class BlogCategory(models.Model):
 
 	def __str__(self):
 		return self.name
+
+class UserFollowing(models.Model):
+    date_followed = models.DateTimeField(auto_now=True)
+    follower = models.ForeignKey(User, related_name='following', on_delete=models.CASCADE)
+    followed = models.ForeignKey(User, related_name='followers')
+
+    def __str__(self):
+        return f'{self.follower.username} follows {self.followed.username}'
