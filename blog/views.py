@@ -17,3 +17,9 @@ class BlogPostListCreate(generics.ListCreateAPIView):
 class BlogPostDetailUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = BlogPost.objects.all()
     serializer_class = BlogPostSerializer
+
+class BlogCommentList(generics.GenericAPIView, mixins.ListModelMixin):
+    queryset = BlogComment.objects.all()
+    serializer_class = BlogCommentSerializer
+    lookup_field = 'post__pk'
+    
