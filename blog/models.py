@@ -6,7 +6,7 @@ from django.utils.text import Truncator, slugify
 
 DEFAULT_THUMBNAIL = 'img/post-thumbnails/default.jpg'
 
-def upload_location(instance, filename):
+def thumbnail_upload_location(instance, filename):
     FILENAME = str.lower(f'{instance.title}-{filename}')
     return f'img/post-thumbnails/author{instance.author.pk}/{FILENAME}'
 
@@ -14,7 +14,7 @@ class BlogPost(models.Model):
     title = models.CharField(max_length=100)
     introduction = models.TextField(max_length=400)
     body = models.TextField(max_length=25000)
-    thumbnail = models.ImageField(upload_to=upload_location, default=DEFAULT_THUMBNAIL)
+    thumbnail = models.ImageField(upload_to=thumbnail_upload_location, default=DEFAULT_THUMBNAIL)
     author = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name='date published')
     upd_date = models.DateTimeField(auto_now=True, verbose_name='date updated')
