@@ -36,12 +36,8 @@ class UserCreateSerializer(serializers.ModelSerializer):
         return attrs
     
     def create(self, validated_data):
-        return User.objects.create_user(
-            username=validated_data['username'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
-            password=validated_data['password'],
-        )
+        validated_data.pop('password2')
+        return User.objects.create_user(**validated_data)
 
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
