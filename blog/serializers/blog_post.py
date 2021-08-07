@@ -15,7 +15,7 @@ class BlogPostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BlogPost
-        fields = ['title', 'author', 'introduction', 'body',
+        fields = ['id', 'title', 'author', 'introduction', 'body',
                   'thumbnail', 'pub_date', 'upd_date', 'categories', 'slug']
         read_only_fields = ['__all__']
 
@@ -23,10 +23,12 @@ class BlogPostSerializer(serializers.ModelSerializer):
         return post.thumbnail.url
 
 class BlogPostCreateSerializer(serializers.ModelSerializer):
-    categories = serializers.PrimaryKeyRelatedField(many=True, queryset=BlogCategory.objects.all())
+    id = serializers.ReadOnlyField()
+    categories = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=BlogCategory.objects.all())
     author_id = serializers.ReadOnlyField(source='author.id')
 
     class Meta:
         model = BlogPost
-        fields = ['author_id', 'id', 'title', 'introduction', 'body', 'thumbnail', 'categories']
-        read_only_fields = ['id']
+        fields = ['id', 'author_id',  'title',
+                  'introduction', 'body', 'thumbnail', 'categories']
