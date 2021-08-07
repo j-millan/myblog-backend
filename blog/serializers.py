@@ -16,3 +16,15 @@ class BlogCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogComment
         fields = ['message', 'author', 'post', 'pub_date', 'upd_date']
+
+class BlogPostSerializer(serializers.ModelSerializer):
+    author = UserSerializer()
+    thumbnail = serializers.SerializerMethodField('get_post_thumbnail')
+    
+    class Meta:
+        model = BlogPost
+        fields = ['title', 'author', 'introduction', 'body', 'thumbnail', 'pub_date', 'upd_date', 'slug']
+    
+    def get_post_thumbnail(self, post):
+        return post.thumbnail.url
+
