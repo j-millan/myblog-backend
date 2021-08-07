@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from django.utils.text import Truncator
 
 def upload_location(instance, filename):
-    return f'img/blogpost_thumbnails/author-{instance.author.pk}/{instance.title}-thumbnail'
+    FILENAME = str.lower(f'{instance.title}-{filename}')
+    return f'img/post-thumbnails/author{instance.author.pk}/{FILENAME}'
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=100)
