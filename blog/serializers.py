@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 
 from rest_framework import serializers
 
-from blog.models import BlogPost, BlogComment
+from blog.models import BlogPost, BlogComment, BlogCategory
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,6 +17,10 @@ class BlogCommentSerializer(serializers.ModelSerializer):
         model = BlogComment
         fields = ['message', 'author', 'post', 'pub_date', 'upd_date']
 
+class BlogCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlogCategory
+        fields = '__all__'
 class BlogPostSerializer(serializers.ModelSerializer):
     author = UserSerializer()
     thumbnail = serializers.SerializerMethodField('get_post_thumbnail')
