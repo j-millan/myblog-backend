@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from blog.models import BlogPost, BlogComment
 from blog.serializers.blog_post import BlogPostSerializer, BlogPostCreateSerializer
 from blog.serializers.blog_comment import BlogCommentSerializer
+from blog.permissions import IsOwnerOrReadOnly
 
 class BlogPostListCreate(generics.ListCreateAPIView):
     queryset = BlogPost.objects.all()
@@ -23,6 +24,9 @@ class BlogPostListCreate(generics.ListCreateAPIView):
 class BlogPostDetailUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = BlogPost.objects.all()
     serializer_class = BlogPostSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+    lookup_field = 'slug'
+    lookup_url_kwarg = 'post_slug'
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
