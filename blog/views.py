@@ -1,11 +1,11 @@
 from django.shortcuts import get_object_or_404, render
 
-from rest_framework import generics, mixins
+from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from blog.models import BlogPost, BlogComment
-from blog.serializers.blog_post import BlogPostSerializer, BlogPostCreateSerializer
-from blog.serializers.blog_comment import BlogCommentSerializer, BlogCommentCreateSerializer, BlogCommentUpdateSerializer
+from blog.serializers.blog_post_serializer import BlogPostSerializer, BlogPostCreateSerializer
+from blog.serializers.blog_comment_serializer import BlogCommentSerializer, BlogCommentCreateSerializer, BlogCommentUpdateSerializer
 from blog.permissions import IsOwnerOrReadOnly
 
 class BlogPostListCreate(generics.ListCreateAPIView):

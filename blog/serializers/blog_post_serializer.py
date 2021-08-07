@@ -1,10 +1,8 @@
-from django.contrib.auth.models import User
-
 from rest_framework import serializers
 
 from blog.models import BlogPost, BlogCategory
-from blog.serializers.user import UserSerializer
-from blog.serializers.blog_category import BlogCategorySerializer
+from auth.serializers.user_serializer import UserSerializer
+from blog.serializers.blog_category_serializer import BlogCategorySerializer
 
 
 class BlogPostSerializer(serializers.ModelSerializer):

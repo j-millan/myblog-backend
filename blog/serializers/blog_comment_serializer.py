@@ -1,9 +1,7 @@
-from django.shortcuts import get_object_or_404
-from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from blog.models import BlogPost, BlogComment
-from blog.serializers.user import UserSerializer
+from auth.serializers.user_serializer import UserSerializer
 
 class BlogCommentSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
