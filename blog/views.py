@@ -24,6 +24,12 @@ class BlogPostDetailUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = BlogPost.objects.all()
     serializer_class = BlogPostSerializer
 
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return BlogPostSerializer
+        else:
+            return BlogPostCreateSerializer
+
 class BlogCommentList(generics.GenericAPIView, mixins.ListModelMixin):
     queryset = BlogComment.objects.all()
     serializer_class = BlogCommentSerializer

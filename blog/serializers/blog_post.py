@@ -24,7 +24,9 @@ class BlogPostSerializer(serializers.ModelSerializer):
 
 class BlogPostCreateSerializer(serializers.ModelSerializer):
     categories = serializers.PrimaryKeyRelatedField(many=True, queryset=BlogCategory.objects.all())
+    author_id = serializers.ReadOnlyField(source='author.id')
 
     class Meta:
         model = BlogPost
-        fields = ['title', 'introduction', 'body', 'thumbnail', 'categories']
+        fields = ['author_id', 'id', 'title', 'introduction', 'body', 'thumbnail', 'categories']
+        read_only_fields = ['id']
