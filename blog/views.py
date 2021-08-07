@@ -25,8 +25,6 @@ class BlogPostDetailUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = BlogPost.objects.all()
     serializer_class = BlogPostSerializer
     permission_classes = [IsOwnerOrReadOnly]
-    lookup_field = 'slug'
-    lookup_url_kwarg = 'post_slug'
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
