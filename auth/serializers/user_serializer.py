@@ -4,10 +4,13 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
+from auth.serializers.user_profile_serializer import UserProfileSerializer
+
 class UserSerializer(serializers.ModelSerializer):
+    profile = UserProfileSerializer()
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'first_name', 'last_name']
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'profile']
         read_only_fields = ['__all__']
 
 class UserCreateSerializer(serializers.ModelSerializer):

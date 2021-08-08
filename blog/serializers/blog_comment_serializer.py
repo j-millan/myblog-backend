@@ -27,4 +27,3 @@ class BlogCommentUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogComment
         fields = ['id', 'message']
-        read_only_fields = ['id']

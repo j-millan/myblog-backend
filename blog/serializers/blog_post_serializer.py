@@ -21,7 +21,6 @@ class BlogPostSerializer(serializers.ModelSerializer):
         return post.thumbnail.url
 
 class BlogPostCreateSerializer(serializers.ModelSerializer):
-    id = serializers.ReadOnlyField()
     categories = serializers.PrimaryKeyRelatedField(
         many=True, queryset=BlogCategory.objects.all())
     author_id = serializers.ReadOnlyField(source='author.id')

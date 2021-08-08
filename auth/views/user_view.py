@@ -4,6 +4,7 @@ from rest_framework import generics
 
 from auth.serializers.user_serializer import UserSerializer, UserCreateSerializer, UserUpdateSerializer
 from auth.permissions import IsUserAuthenticatedOrReadOnly
+from auth.models import UserProfile
 
 class UserListCreate(generics.ListCreateAPIView):
     queryset = User.objects.all()
@@ -13,6 +14,10 @@ class UserListCreate(generics.ListCreateAPIView):
             return UserCreateSerializer
         else:
             return UserSerializer
+    
+    def perform_create(self, serializer):
+        serializer.save()
+        UserProfile.objects.create(user=serializer.instance)
 
 class UserDetailUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
