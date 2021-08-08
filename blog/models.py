@@ -26,7 +26,8 @@ class BlogPost(models.Model):
 
     class Meta:
         unique_together = ['title', 'author']
-
+        ordering = ['-pub_date']
+        
 @receiver(post_delete, sender=BlogPost)
 def post_delete_blog_post(sender, instance, *args, **kwargs):
     instance.thumbnail.delete(False)
