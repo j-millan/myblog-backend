@@ -19,6 +19,12 @@ class BlogPostListCreate(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
+class UserBlogPostList(generics.ListAPIView):
+    serializer_class = BlogPostSerializer
+    
+    def get_queryset(self):
+        return BlogPost.objects.filter(author__pk=self.kwargs['user_pk'])
+
 class BlogPostDetailUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = BlogPost.objects.all()
     permission_classes = [IsOwnerOrReadOnly]
