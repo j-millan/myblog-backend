@@ -1,5 +1,5 @@
 import django_filters
-from blog.models import BlogPost
+from blog.models import BlogPost, BlogComment
 
 class BlogPostFilter(django_filters.FilterSet):
     content = django_filters.CharFilter(field_name='title', lookup_expr='contains')
@@ -10,3 +10,11 @@ class BlogPostFilter(django_filters.FilterSet):
     class Meta:
         model = BlogPost
         fields = ['content', 'publication_date', 'author_id', 'category_id']
+
+class BlogCommentFilter(django_filters.FilterSet):
+    author_id = django_filters.NumberFilter(field_name='author', lookup_expr='pk')
+    post_id = django_filters.NumberFilter(field_name='post', lookup_expr='pk')
+
+    class Meta:
+        model = BlogComment
+        fields = ['author_id', 'post_id']
