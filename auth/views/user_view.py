@@ -1,12 +1,11 @@
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
-from rest_framework import generics
-from rest_framework.decorators import api_view
+from rest_framework import generics, response, status
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import AuthenticationFailed
-from rest_framework import response, status
 
 from auth.serializers.user_serializer import UserSerializer, UserCreateSerializer, UserUpdateSerializer
 from auth.serializers.user_profile_serializer import UserProfileSerializer
@@ -28,6 +27,12 @@ def user_login(request):
         raise AuthenticationFailed
 
     return response.Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def user_logout(request):
+    logout(request)
+    return response.Response({"message": 'Logged out succesfully'}, status=status.HTTP_204_NO_CONTENT)
 
 class UserListCreate(generics.ListCreateAPIView):
     queryset = User.objects.all()
