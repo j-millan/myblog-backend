@@ -9,18 +9,9 @@ from auth.serializers.user_profile_serializer import UserProfileSerializer
 from auth.permissions import IsUserAuthenticatedOrReadOnly
 from auth.models import UserProfile
 
-class UserListCreate(generics.ListCreateAPIView):
+class UserList(generics.ListAPIView):
     queryset = User.objects.all()
-    
-    def get_serializer_class(self):
-        if self.request.method == 'POST':
-            return UserCreateSerializer
-        else:
-            return UserSerializer
-    
-    def perform_create(self, serializer):
-        serializer.save()
-        UserProfile.objects.create(user=serializer.instance)
+    serializer_class = UserSerializer
 
 class UserDetailUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
