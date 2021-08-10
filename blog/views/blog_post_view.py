@@ -4,11 +4,14 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from blog.models import BlogPost
 from blog.serializers.blog_post_serializer import BlogPostSerializer, BlogPostCreateSerializer
 from blog.permissions import IsOwnerOrReadOnly
-
+from blog.filters import BlogPostFilter
 
 class BlogPostListCreate(generics.ListCreateAPIView):
-    queryset = BlogPost.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get_queryset(self):
+        posts = BlogPostFilter(self.request.GET, queryset=BlogPost.objects.all())
+        return posts.qs
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
