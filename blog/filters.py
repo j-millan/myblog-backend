@@ -1,5 +1,5 @@
 import django_filters
-from blog.models import BlogPost, BlogComment
+from blog.models import BlogPost, BlogComment, UserFollowing
 
 class BlogPostFilter(django_filters.FilterSet):
     content = django_filters.CharFilter(field_name='title', lookup_expr='contains')
@@ -18,3 +18,11 @@ class BlogCommentFilter(django_filters.FilterSet):
     class Meta:
         model = BlogComment
         fields = ['author_id', 'post_id']
+
+class UserFollowingFilter(django_filters.FilterSet):
+    follower_id = django_filters.NumberFilter(field_name='follower', lookup_expr='pk')
+    followed_id = django_filters.NumberFilter(field_name='followed', lookup_expr='pk')
+
+    class Meta:
+        model = UserFollowing
+        fields = ['follower_id', 'followed_id']
