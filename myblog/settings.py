@@ -41,9 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework.authtoken',
     'django_filters',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'auth.middleware.DisableCSRFMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -109,6 +111,16 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
 }
+
+# CORS
+ALLOWED_HOSTS = [
+    '0.0.0.0',
+]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:2000',
+    'http://localhost:4000',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
