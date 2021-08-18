@@ -119,7 +119,7 @@ ALLOWED_HOSTS = [
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:2000',
-    'http://localhost:4000',
+    'http://localhost:4200',
 ]
 
 # Internationalization
