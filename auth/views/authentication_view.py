@@ -30,11 +30,9 @@ class UserRegister(generics.GenericAPIView, mixins.CreateModelMixin):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            login(request, serializer.instance)
-            user_data = get_response_with_token(serializer)
             UserProfile.objects.create(user=serializer.instance)
 
-            return response.Response(user_data, status=status.HTTP_201_CREATED)
+            return response.Response(serializer.data, status=status.HTTP_201_CREATED)
         
         return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
