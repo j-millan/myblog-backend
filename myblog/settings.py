@@ -115,6 +115,7 @@ REST_FRAMEWORK = {
 # CORS
 ALLOWED_HOSTS = [
     '0.0.0.0',
+    '127.0.0.1',
 ]
 
 CORS_ORIGIN_WHITELIST = [
