@@ -34,7 +34,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
             raise serializers.ValidationError(
-                {'password': 'Password fields did not match'})
+                {'password': 'Password fields did not match.'})
         
         return attrs
     
@@ -60,7 +60,7 @@ class UserUpdatePasswordSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
             raise serializers.ValidationError(
-                {'password': 'Password fields did not match'})
+                {'password': 'Password fields did not match.'})
 
         return attrs
     
