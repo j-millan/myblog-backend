@@ -10,6 +10,7 @@ urlpatterns = [
     path('blog-comments', blog_comment_view.BlogCommentListCreate.as_view(), name='blog_comment_list'),
     path('blog-comments/<int:pk>', blog_comment_view.BlogCommentUpdateDelete.as_view(), name='blog_comment_update_delete'),
     path('blog-categories', blog_category_view.BlogCategoryList.as_view(), name='blog_category_list'),
+    path('blog-categories/popular', blog_category_view.RecentPopularBlogCategoryList.as_view(), name='popular_blog_category_list'),
     path('user-following', user_following_view.UserFollowingListCreate.as_view(), name='user_following_list_create'),
     path('user-following/<int:pk>', user_following_view.UserFollowingDelete.as_view(), name='user_following_delete'),
 ]
