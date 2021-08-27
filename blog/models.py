@@ -19,7 +19,7 @@ class BlogPost(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name='date published')
     upd_date = models.DateTimeField(auto_now=True, verbose_name='date updated')
     categories = models.ManyToManyField('BlogCategory', related_name='posts')
-    slug = models.SlugField(unique=True, blank=True)
+    slug = models.SlugField(max_length=130, unique=True, blank=True)
 
     def __str__(self):
         return self.title
