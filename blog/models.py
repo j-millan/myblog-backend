@@ -12,7 +12,7 @@ def thumbnail_upload_location(instance, filename):
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=100)
-    introduction = models.TextField(max_length=400)
+    introduction = models.TextField(max_length=1200)
     body = models.TextField(max_length=25000)
     thumbnail = models.ImageField(upload_to=thumbnail_upload_location, default=DEFAULT_THUMBNAIL)
     author = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
